@@ -1,7 +1,12 @@
 # seneca-merge-validate
-SenecaJS Merge Validate
 
+![npm](https://img.shields.io/badge/npm-v5.6.1-blue.svg) ![yarn](https://img.shields.io/badge/yarn-v1.3.2-blue.svg) ![node](https://img.shields.io/badge/node-v8.9.0-brightgreen.svg) ![babel](https://img.shields.io/badge/babel-v6.26.0-red.svg)
 
+## About
+
+SenecaJS Merge Validate is a abstraction package made to validate/formate a message payload data, the same is also used in [seneca-sequelize package](https://github.com/Bsociety/seneca-sequelize)
+
+## Example
 ```js
 function Plugin () {
   const seneca = this
