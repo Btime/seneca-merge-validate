@@ -1,6 +1,6 @@
 {
   "name": "seneca-merge-validate",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "SenecaJS Merge Validate",
   "main": "index.js",
   "scripts": {
@@ -25,7 +25,7 @@
     "package"
   ],
   "author": "FelipeBarrosCruz <felipebarroscruz@btime.com.br>",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Bsociety/seneca-merge-validate.git/issues"
   },
