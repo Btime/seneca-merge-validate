@@ -27,7 +27,10 @@ function Plugin () {
   }
 
   function getValidateSchema () {
-    return 
+    return {
+      field: Joi.any()
+        .required()
+    }
   }
 
   function createService (params) {
