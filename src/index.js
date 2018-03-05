@@ -82,5 +82,5 @@ export default function SenecaMergeValidate (seneca) {
     return Promise.resolve(params)
   }
 
-  return { validate }
+  return { validate, Joi }
 }
