@@ -63,5 +63,5 @@ function SenecaMergeValidate(seneca) {
     return Promise.resolve(params);
   };
 
-  return { validate: validate };
+  return { validate: validate, Joi: Joi };
 }
