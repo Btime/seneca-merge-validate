@@ -1,13 +1,13 @@
 {
   "name": "seneca-merge-validate",
-  "version": "1.0.3",
+  "version": "1.0.2",
   "description": "SenecaJS Merge Validate",
   "main": "index.js",
   "scripts": {
     "start": "echo \"no entry point\"",
     "test": "npm run lab",
     "lab": "lab -v test/*.test.js -T node_modules/lab-babel --leaks --timeout 555555",
-    "build": "babel ./src/index.js -o ./index.js --presets es2015"
+    "build": "babel ./src/index.js -o ./dist/index.js --presets es2015"
   },
   "husky": {
     "hooks": {
