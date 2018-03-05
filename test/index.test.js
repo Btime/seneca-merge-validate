@@ -67,6 +67,32 @@ describe('Merge Validate Package Test', () => {
     }
   )
 
+  it('Expect exists Joi property in MergeValidatePackage Lib',
+    () => {
+      return new Promise((resolve, reject) => {
+        try {
+          expect(!!mergeValidate.Joi).to.be.equal(true)
+          resolve(null)
+        } catch (err) {
+          reject(err)
+        }
+      })
+    }
+  )
+
+  it('Expect exists Joi property is a valid object handler of Hapi/Joi',
+    () => {
+      return new Promise((resolve, reject) => {
+        try {
+          expect(!!mergeValidate.Joi.isJoi).to.be.equal(true)
+          resolve(null)
+        } catch (err) {
+          reject(err)
+        }
+      })
+    }
+  )
+
   it('Expect not validate params without options',
     () => {
       return new Promise((resolve, reject) => {
