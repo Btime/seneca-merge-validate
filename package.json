@@ -1,6 +1,6 @@
 {
   "name": "seneca-merge-validate",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "SenecaJS Merge Validate",
   "main": "index.js",
   "scripts": {
