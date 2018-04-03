@@ -4,7 +4,7 @@ module.exports = {
   args: {
     status: false,
     name: 'BTime',
-    options: {
+    requestOptions: {
       fields: ['name', 'email']
     }
   },

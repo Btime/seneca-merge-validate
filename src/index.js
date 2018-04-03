@@ -7,10 +7,10 @@ import {
   isPlainObject
 } from 'lodash'
 const DEFAULT_PICK_FIELDS = [
-  'options'
+  'requestOptions'
 ]
 const DEFAULT_SCHEMA = {
-  options: Joi.object().keys({
+  requestOptions: Joi.object().keys({
     fields: Joi.array()
       .min(1)
       .optional()
