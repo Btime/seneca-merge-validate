@@ -147,7 +147,7 @@ describe('Merge Validate Package Test', () => {
         try {
           mergeValidate.validate(Mock)
             .then((params) => {
-              expect(Object.keys(params).length).to.be.equal(2)
+              expect(Object.keys(params).length).to.be.equal(3)
               expect(params.name).to.be.equal(Mock.args.name)
               expect(isPlainObject(params.requestOptions)).to.be.equal(true)
               expect(isArray(params.requestOptions.fields)).to.be.equal(true)
@@ -156,6 +156,12 @@ describe('Merge Validate Package Test', () => {
                   params.requestOptions.fields,
                   Mock.args.requestOptions.fields)
               ).to.be.equal(true)
+              expect(
+                isEqual(
+                  params.user,
+                  Mock.args.user
+                )
+              )
               resolve(null)
             })
             .catch(reject)

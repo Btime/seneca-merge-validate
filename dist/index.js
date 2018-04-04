@@ -13,8 +13,10 @@ var _lodash = require('lodash');
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-var DEFAULT_PICK_FIELDS = ['requestOptions'];
+var DEFAULT_PICK_FIELDS = ['user', 'requestOptions'];
 var DEFAULT_SCHEMA = {
+  user: Joi.object().optional().description('the user data'),
+
   requestOptions: Joi.object().keys({
     fields: Joi.array().min(1).optional().description('the fields option to merge with select clause'),
 
