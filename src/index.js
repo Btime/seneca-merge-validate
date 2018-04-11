@@ -26,6 +26,11 @@ const DEFAULT_SCHEMA = {
       .optional()
       .description('the filters option to merge with where clause'),
 
+    like: Joi.object()
+      .optional()
+      .min(1)
+      .description('the filter to use in like operation'),
+
     paginate: Joi.object().keys({
       page: Joi.number()
         .integer()
