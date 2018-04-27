@@ -11,7 +11,7 @@ var Joi = _interopRequireWildcard(_joi);
 
 var _btimeSchemaValidatePackage = require('btime-schema-validate-package');
 
-var BtimeSchemValidatePackage = _interopRequireWildcard(_btimeSchemaValidatePackage);
+var BtimeSchemaValidatePackage = _interopRequireWildcard(_btimeSchemaValidatePackage);
 
 var _lodash = require('lodash');
 
@@ -45,7 +45,7 @@ function SenecaMergeValidate(seneca) {
     var name = schema.name || '';
     var method = schema.method || '';
 
-    var validateSchema = BtimeSchemValidatePackage.getSchema({ name: name, method: method });
+    var validateSchema = BtimeSchemaValidatePackage.getSchema({ name: name, method: method });
 
     var formattedSchema = (0, _lodash.isPlainObject)(validateSchema) && validateSchema.result && validateSchema.result || {};
 

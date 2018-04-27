@@ -1,5 +1,5 @@
 import * as Joi from 'joi'
-import * as BtimeSchemValidatePackage from 'btime-schema-validate-package'
+import * as BtimeSchemaValidatePackage from 'btime-schema-validate-package'
 import {
   pick,
   union,
@@ -64,7 +64,7 @@ export default function SenecaMergeValidate (seneca) {
     const name = schema.name || ''
     const method = schema.method || ''
 
-    const validateSchema = BtimeSchemValidatePackage
+    const validateSchema = BtimeSchemaValidatePackage
       .getSchema({ name, method })
 
     const formattedSchema = isPlainObject(validateSchema) &&
