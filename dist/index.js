@@ -9,6 +9,10 @@ var _joi = require('joi');
 
 var Joi = _interopRequireWildcard(_joi);
 
+var _btimeSchemaValidatePackage = require('btime-schema-validate-package');
+
+var BtimeSchemValidatePackage = _interopRequireWildcard(_btimeSchemaValidatePackage);
+
 var _lodash = require('lodash');
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
@@ -38,7 +42,14 @@ function SenecaMergeValidate(seneca) {
   };
 
   var getSchema = function getSchema(schema) {
-    return (0, _lodash.merge)({}, DEFAULT_SCHEMA, (0, _lodash.isPlainObject)(schema) && schema || {});
+    var name = schema.name || '';
+    var method = schema.method || '';
+
+    var validateSchema = BtimeSchemValidatePackage.getSchema({ name: name, method: method });
+
+    var formattedSchema = (0, _lodash.isPlainObject)(validateSchema) && validateSchema.result && validateSchema.result || {};
+
+    return (0, _lodash.merge)({}, DEFAULT_SCHEMA, (0, _lodash.isPlainObject)(formattedSchema) && formattedSchema || {});
   };
 
   var getOptions = function getOptions(options) {

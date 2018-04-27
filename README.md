@@ -23,7 +23,7 @@ function Plugin () {
     senecaMergeValidate.validate({
       args,
       pick: PICK_FIELDS,
-      schema: getValidateSchema(),
+      schema: { name: args.role, method: args.cmd },
       options: { abortEarly: false }
     })
     .then(params => create(params))

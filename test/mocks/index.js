@@ -1,5 +1,3 @@
-const Joi = require('joi')
-
 module.exports = {
   args: {
     status: false,
@@ -14,11 +12,5 @@ module.exports = {
     }
   },
   pick: ['name'],
-  schema: {
-    name: Joi.string()
-      .required(),
-
-    status: Joi.boolean()
-      .optional()
-  }
+  schema: { name: 'user', method: 'getStatus' }
 }

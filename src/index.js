@@ -1,4 +1,5 @@
 import * as Joi from 'joi'
+import * as BtimeSchemValidatePackage from 'btime-schema-validate-package'
 import {
   pick,
   union,
@@ -6,6 +7,7 @@ import {
   merge,
   isPlainObject
 } from 'lodash'
+
 const DEFAULT_PICK_FIELDS = [
   'user',
   'requestOptions'
@@ -59,10 +61,20 @@ export default function SenecaMergeValidate (seneca) {
   }
 
   const getSchema = (schema) => {
+    const name = schema.name || ''
+    const method = schema.method || ''
+
+    const validateSchema = BtimeSchemValidatePackage
+      .getSchema({ name, method })
+
+    const formattedSchema = isPlainObject(validateSchema) &&
+      validateSchema.result &&
+      validateSchema.result || {}
+
     return merge(
       {},
       DEFAULT_SCHEMA,
-      (isPlainObject(schema) && schema || {})
+      (isPlainObject(formattedSchema) && formattedSchema || {})
     )
   }
 
