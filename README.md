@@ -6,6 +6,25 @@
 
 SenecaJS Merge Validate is a abstraction package made to validate/formate a message payload data, the same is also used in [seneca-sequelize package](https://github.com/Bsociety/seneca-sequelize)
 
+## Setup
+
+### Installing
+
+```bash
+$ npm i
+```
+### Bulding
+
+```bash
+$ npm run build
+```
+
+## Usage
+
+```bash
+$ npm i Btime/seneca-merge-validate -S
+```
+
 ## Example
 ```js
 function Plugin () {
