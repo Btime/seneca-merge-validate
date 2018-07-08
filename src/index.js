@@ -13,57 +13,11 @@ const DEFAULT_PICK_FIELDS = [
   'requestOptions'
 ]
 
-const SORTING_TYPES = ['ASC', 'DESC']
+const validateSchema = BtimeSchemaValidatePackage.getSchema({
+  name: 'request-options', method: 'seneca-merge-validate'
+})
 
-const DEFAULT_SCHEMA = {
-  user: Joi.object()
-    .optional()
-    .description('the user data'),
-
-  requestOptions: Joi.object().keys({
-    fields: Joi.array()
-      .min(1)
-      .optional()
-      .description('the fields option to merge with select clause'),
-
-    filters: Joi.object()
-      .min(1)
-      .optional()
-      .description('the filters option to merge with where clause'),
-
-    like: Joi.object()
-      .optional()
-      .min(1)
-      .description('the filter to use in like operation'),
-
-    paginate: Joi.object().keys({
-      page: Joi.number()
-        .integer()
-        .optional()
-        .description('the page option to merge with query params'),
-
-      limit: Joi.number()
-        .integer()
-        .optional()
-        .description('the limit option to merge with query params')
-    }),
-
-    ordination: Joi.object().keys({
-      field: Joi.string()
-        .required()
-        .description('the field to order by'),
-
-      type: Joi.string()
-        .valid(SORTING_TYPES)
-        .required()
-        .description('the order by type')
-    })
-    .optional()
-    .description('the ordination to format in query string that means the order clause')
-  })
-  .optional()
-  .description('the options to merge with query params')
-}
+const DEFAULT_SCHEMA = validateSchema.result
 
 export default function SenecaMergeValidate (seneca) {
   const getParams = (args, fields) => {
