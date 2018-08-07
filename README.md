@@ -37,7 +37,7 @@ function Plugin () {
     'field'
   ]
 
-  seneca.add({ role: 'plugin', cmd: 'create' }, cmd_create)
+  seneca.add({ role: 'plugin', cmd: 'create', credentials: '*'}, cmd_create)
 
   function cmd_create (args, done) {
     senecaMergeValidate.validate({
