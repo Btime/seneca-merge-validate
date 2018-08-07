@@ -17,7 +17,7 @@ var _lodash = require('lodash');
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-var DEFAULT_PICK_FIELDS = ['user', 'requestOptions'];
+var DEFAULT_PICK_FIELDS = ['user', 'requestOptions', 'credentials'];
 
 var validateSchema = BtimeSchemaValidatePackage.getSchema({
   name: 'request-options', method: 'seneca-merge-validate'
