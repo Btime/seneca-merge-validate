@@ -10,7 +10,8 @@ import {
 
 const DEFAULT_PICK_FIELDS = [
   'user',
-  'requestOptions'
+  'requestOptions',
+  'credentials'
 ]
 
 const validateSchema = BtimeSchemaValidatePackage.getSchema({
