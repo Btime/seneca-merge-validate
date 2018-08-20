@@ -24,14 +24,14 @@
     "microservice",
     "package"
   ],
-  "author": "FelipeBarrosCruz <felipebarroscruz@btime.com.br>",
+  "author": "Btime <team@btime.io>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Bsociety/seneca-merge-validate.git/issues"
   },
   "homepage": "https://github.com/Bsociety/seneca-merge-validate.git#readme",
   "dependencies": {
-    "btime-schema-validate-package": "github:Btime/btime-schema-validate-package",
+    "btime-schema-validate-package": "github:btime/btime-schema-validate-package#70e6ba1585d45cb3e4510f06b62b6193a68feb2d",
     "joi": "^8.4.1",
     "lodash": "^4.13.1",
     "seneca": "^3.4.3"

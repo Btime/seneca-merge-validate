@@ -1,10 +1,10 @@
 module.exports = {
   args: {
     status: false,
-    name: 'BTime',
+    name: 'Btime',
     user: {
       id: 1,
-      name: 'Felipe Barros',
+      name: 'Btime Team',
       provideId: 1
     },
     requestOptions: {
