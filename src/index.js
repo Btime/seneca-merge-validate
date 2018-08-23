@@ -1,15 +1,8 @@
 import * as Joi from 'joi'
 import * as BtimeSchemaValidatePackage from 'btime-schema-validate-package'
-import {
-  pick,
-  union,
-  isArray,
-  merge,
-  isPlainObject
-} from 'lodash'
+import * as _ from 'lodash'
 
 const DEFAULT_PICK_FIELDS = [
-  'user',
   'requestOptions',
   'credentials'
 ]
@@ -22,11 +15,11 @@ const DEFAULT_SCHEMA = validateSchema.result
 
 export default function SenecaMergeValidate (seneca) {
   const getParams = (args, fields) => {
-    return pick(
+    return _.pick(
       seneca.util.clean(args),
-      union(
+      _.union(
         DEFAULT_PICK_FIELDS,
-        (isArray(fields) && fields || [])
+        (_.isArray(fields) && fields || [])
       )
     )
   }
@@ -38,19 +31,19 @@ export default function SenecaMergeValidate (seneca) {
     const validateSchema = BtimeSchemaValidatePackage
       .getSchema({ name, method })
 
-    const formattedSchema = isPlainObject(validateSchema) &&
+    const formattedSchema = _.isPlainObject(validateSchema) &&
       validateSchema.result &&
       validateSchema.result || {}
 
-    return merge(
+    return _.merge(
       {},
       DEFAULT_SCHEMA,
-      (isPlainObject(formattedSchema) && formattedSchema || {})
+      (_.isPlainObject(formattedSchema) && formattedSchema || {})
     )
   }
 
   const getOptions = (options) => {
-    return isPlainObject(options) && options || { abortEarly: false }
+    return _.isPlainObject(options) && options || { abortEarly: false }
   }
 
   const getPluginName = (args) => {
