@@ -15,9 +15,11 @@ var BtimeSchemaValidatePackage = _interopRequireWildcard(_btimeSchemaValidatePac
 
 var _lodash = require('lodash');
 
+var _ = _interopRequireWildcard(_lodash);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-var DEFAULT_PICK_FIELDS = ['user', 'requestOptions', 'credentials'];
+var DEFAULT_PICK_FIELDS = ['requestOptions', 'credentials'];
 
 var validateSchema = BtimeSchemaValidatePackage.getSchema({
   name: 'request-options', method: 'seneca-merge-validate'
@@ -27,7 +29,7 @@ var DEFAULT_SCHEMA = validateSchema.result;
 
 function SenecaMergeValidate(seneca) {
   var getParams = function getParams(args, fields) {
-    return (0, _lodash.pick)(seneca.util.clean(args), (0, _lodash.union)(DEFAULT_PICK_FIELDS, (0, _lodash.isArray)(fields) && fields || []));
+    return _.pick(seneca.util.clean(args), _.union(DEFAULT_PICK_FIELDS, _.isArray(fields) && fields || []));
   };
 
   var getSchema = function getSchema(schema) {
@@ -36,13 +38,13 @@ function SenecaMergeValidate(seneca) {
 
     var validateSchema = BtimeSchemaValidatePackage.getSchema({ name: name, method: method });
 
-    var formattedSchema = (0, _lodash.isPlainObject)(validateSchema) && validateSchema.result && validateSchema.result || {};
+    var formattedSchema = _.isPlainObject(validateSchema) && validateSchema.result && validateSchema.result || {};
 
-    return (0, _lodash.merge)({}, DEFAULT_SCHEMA, (0, _lodash.isPlainObject)(formattedSchema) && formattedSchema || {});
+    return _.merge({}, DEFAULT_SCHEMA, _.isPlainObject(formattedSchema) && formattedSchema || {});
   };
 
   var getOptions = function getOptions(options) {
-    return (0, _lodash.isPlainObject)(options) && options || { abortEarly: false };
+    return _.isPlainObject(options) && options || { abortEarly: false };
   };
 
   var getPluginName = function getPluginName(args) {
