@@ -118,27 +118,26 @@ describe('Merge Validate Package Test', () => {
   )
 
   it('Expect validate params without options', () => {
-      return new Promise((resolve, reject) => {
-        try {
-          const args = { name: 'Btime' }
-          mergeValidate.validate({
-            args,
-            schema: Mock.schema,
-            pick: ['name']
-          })
-          .then((params) => {
-            expect(typeof params).to.be.equal('object')
-            expect(Object.keys(params).length).to.be.equal(1)
-            expect(params.name).to.be.equal(args.name)
-            resolve(null)
-          })
-          .catch(reject)
-        } catch (err) {
-          reject(err)
-        }
-      })
-    }
-  )
+    return new Promise((resolve, reject) => {
+      try {
+        const args = { name: 'Btime' }
+        mergeValidate.validate({
+          args,
+          schema: Mock.schema,
+          pick: ['name']
+        })
+        .then((params) => {
+          expect(typeof params).to.be.equal('object')
+          expect(Object.keys(params).length).to.be.equal(1)
+          expect(params.name).to.be.equal(args.name)
+          resolve(null)
+        })
+        .catch(reject)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  })
 
   it('Expect validate params with options',
     () => {
