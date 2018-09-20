@@ -1,10 +1,11 @@
 # seneca-merge-validate
 
-![npm](https://img.shields.io/badge/npm-v5.6.1-blue.svg) ![yarn](https://img.shields.io/badge/yarn-v1.3.2-blue.svg) ![node](https://img.shields.io/badge/node-v8.9.0-brightgreen.svg) ![babel](https://img.shields.io/badge/babel-v6.26.0-red.svg)
+![npm](https://img.shields.io/badge/npm-v5.6.1-blue.svg) ![node](https://img.shields.io/badge/node-v8.9.0-brightgreen.svg)
 
 ## About
 
-SenecaJS Merge Validate is an abstraction package made to validate/formate a message payload data
+SenecaJS Merge Validate is an abstraction package made to validate/formate a message payload data.
+This package uses [`Btime-schema-validate-package`](https://github.com/Btime/btime-schema-validate-package) to perform validations based on the schemas defined there.
 
 ## Setup
 
@@ -12,11 +13,6 @@ SenecaJS Merge Validate is an abstraction package made to validate/formate a mes
 
 ```bash
 $ npm i
-```
-### Bulding
-
-```bash
-$ npm run build
 ```
 
 ## Usage

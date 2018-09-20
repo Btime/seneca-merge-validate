@@ -1,19 +1,13 @@
-import { script } from 'lab'
-import { expect } from 'code'
-import {
-  isPlainObject,
-  isArray,
-  isEqual
-} from 'lodash'
-import Seneca from 'seneca'
-import MergeValidatePackage from '../index'
+/* eslint-env mocha */
+
+const chai = require('chai')
+const expect = chai.expect
+
+const { isPlainObject, isArray, isEqual } = require('lodash')
+const Seneca = require('seneca')
+const MergeValidatePackage = require('../index')
 
 const Mock = require('./mocks')
-const lab = exports.lab = script()
-const describe = lab.describe
-const it = lab.it
-const before = lab.before
-
 describe('Merge Validate Package Test', () => {
   let mergeValidate = null
 
@@ -100,16 +94,16 @@ describe('Merge Validate Package Test', () => {
           mergeValidate.validate({
             args: {},
             schema: Mock.schema,
-            pick: ['name']
+            pick: [ 'name' ]
           })
-          .catch((err) => {
-            expect(typeof err).to.be.equal('object')
-            expect(err.status).to.be.equal(false)
-            expect(typeof err.message).to.be.equal('object')
-            expect(typeof err.message).to.be.equal('object')
-            expect(err.message.name).to.be.equal('ValidationError')
-            resolve(null)
-          })
+            .catch((err) => {
+              expect(typeof err).to.be.equal('object')
+              expect(err.status).to.be.equal(false)
+              expect(typeof err.message).to.be.equal('object')
+              expect(typeof err.message).to.be.equal('object')
+              expect(err.message.name).to.be.equal('ValidationError')
+              resolve(null)
+            })
         } catch (err) {
           reject(err)
         }
@@ -124,15 +118,15 @@ describe('Merge Validate Package Test', () => {
         mergeValidate.validate({
           args,
           schema: Mock.schema,
-          pick: ['name']
+          pick: [ 'name' ]
         })
-        .then((params) => {
-          expect(typeof params).to.be.equal('object')
-          expect(Object.keys(params).length).to.be.equal(1)
-          expect(params.name).to.be.equal(args.name)
-          resolve(null)
-        })
-        .catch(reject)
+          .then((params) => {
+            expect(typeof params).to.be.equal('object')
+            expect(Object.keys(params).length).to.be.equal(1)
+            expect(params.name).to.be.equal(args.name)
+            return resolve(null)
+          })
+          .catch(reject)
       } catch (err) {
         reject(err)
       }
@@ -154,7 +148,7 @@ describe('Merge Validate Package Test', () => {
                   params.requestOptions.fields,
                   Mock.args.requestOptions.fields)
               ).to.be.equal(true)
-              resolve(null)
+              return resolve(null)
             })
             .catch(reject)
         } catch (err) {

@@ -3,9 +3,9 @@ module.exports = {
     status: false,
     name: 'Btime',
     requestOptions: {
-      fields: ['name', 'email']
+      fields: [ 'name', 'email' ]
     }
   },
-  pick: ['name'],
+  pick: [ 'name' ],
   schema: { name: 'user', method: 'getStatus' }
 }

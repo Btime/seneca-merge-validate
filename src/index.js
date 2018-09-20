@@ -1,6 +1,6 @@
-import * as Joi from 'joi'
-import * as BtimeSchemaValidatePackage from 'btime-schema-validate-package'
-import * as _ from 'lodash'
+const Joi = require('joi')
+const BtimeSchemaValidatePackage = require('btime-schema-validate-package')
+const _ = require('lodash')
 
 const DEFAULT_PICK_FIELDS = [
   'requestOptions',
@@ -13,7 +13,7 @@ const validateSchema = BtimeSchemaValidatePackage.getSchema({
 
 const DEFAULT_SCHEMA = validateSchema.result
 
-export default function SenecaMergeValidate (seneca) {
+module.exports.default = function SenecaMergeValidate (seneca) {
   const getParams = (args, fields) => {
     return _.pick(
       seneca.util.clean(args),
