@@ -7,6 +7,14 @@
 SenecaJS Merge Validate is an abstraction package made to validate/formate a message payload data.
 This package uses [`Btime-schema-validate-package`](https://github.com/Btime/btime-schema-validate-package) to perform validations based on the schemas defined there.
 
+## Table of Contents
+
+1. [Setup](#setup)
+    1. [Installing](#installing)
+1. [Usage](#usage)
+    1. [Example](#example)
+1. [Tests](#tests)
+
 ## Setup
 
 ### Installing
@@ -21,7 +29,7 @@ $ npm i
 $ npm i Btime/seneca-merge-validate -S
 ```
 
-## Example
+### Example
 
 ```js
 function Plugin () {
@@ -61,4 +69,22 @@ function Plugin () {
     })
   }
 }
+```
+
+## Tests
+
+```bash
+$ npm test
+```
+
+- Running tests with coverage in terminal:
+
+```bash
+$ npm run coverage
+```
+
+- Running tests with coverage in HTML:
+
+```bash
+$ npm run htmlCoverage
 ```
