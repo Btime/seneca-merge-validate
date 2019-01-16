@@ -16,7 +16,7 @@ const DEFAULT_SCHEMA = validateSchema.result
 module.exports.default = function SenecaMergeValidate (seneca) {
   const getParams = (args, fields) => {
     return _.pick(
-      seneca.util.clean(args),
+      seneca ? seneca.util.clean(args) : args,
       _.union(
         DEFAULT_PICK_FIELDS,
         (_.isArray(fields) && fields || [])
@@ -62,7 +62,9 @@ module.exports.default = function SenecaMergeValidate (seneca) {
     const isValid = Joi.validate(params, schema, getOptions(data.options))
 
     if (isValid.error) {
-      seneca.log.error(getErrorMessageByPluginName(pluginName), isValid.error)
+      if (seneca) {
+        seneca.log.error(getErrorMessageByPluginName(pluginName), isValid.error)
+      }
       return Promise.reject({ status: false, message: isValid.error })
     }
     return Promise.resolve(params)
