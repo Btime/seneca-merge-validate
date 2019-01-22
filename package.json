@@ -38,7 +38,7 @@
   },
   "homepage": "https://github.com/Btime/seneca-merge-validate.git#readme",
   "dependencies": {
-    "btime-schema-validate-package": "github:Btime/btime-schema-validate-package",
+    "btime-schema-validate-package": "github:Btime/btime-schema-validate-package#BTV2-97",
     "joi": "^13.1.2",
     "joi-date-extensions": "^1.2.0",
     "lodash": "^4.17.5",
