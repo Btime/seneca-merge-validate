@@ -1,12 +1,11 @@
 module.exports = {
   args: {
-    status: false,
-    name: 'Btime',
+    id: 1,
     requestOptions: {
       fields: [ 'name', 'email' ]
     }
   },
-  pick: [ 'name' ],
+  pick: [ 'id' ],
   schema: { name: 'user', method: 'select' }
 }
 

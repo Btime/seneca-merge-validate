@@ -77,57 +77,13 @@ describe('Merge Validate Package Test', () => {
     })
   })
 
-  it('Expect not validate params without options', () => {
-    return new Promise((resolve, reject) => {
-      try {
-        mergeValidate.validate({
-          args: {},
-          schema: Mock.schema,
-          pick: [ 'name' ]
-        })
-          .catch((err) => {
-            expect(typeof err).to.be.equal('object')
-            expect(err.status).to.be.equal(false)
-            expect(typeof err.message).to.be.equal('object')
-            expect(typeof err.message).to.be.equal('object')
-            expect(err.message.name).to.be.equal('ValidationError')
-            resolve(null)
-          })
-      } catch (err) {
-        reject(err)
-      }
-    })
-  })
-
-  it('Expect validate params without options', () => {
-    return new Promise((resolve, reject) => {
-      try {
-        const args = { name: 'Btime' }
-        mergeValidate.validate({
-          args,
-          schema: Mock.schema,
-          pick: [ 'name' ]
-        })
-          .then((params) => {
-            expect(typeof params).to.be.equal('object')
-            expect(Object.keys(params).length).to.be.equal(1)
-            expect(params.name).to.be.equal(args.name)
-            return resolve(null)
-          })
-          .catch(reject)
-      } catch (err) {
-        reject(err)
-      }
-    })
-  })
-
   it('Expect validate params with options', () => {
     return new Promise((resolve, reject) => {
       try {
         mergeValidate.validate(Mock)
           .then((params) => {
             expect(Object.keys(params).length).to.be.equal(2)
-            expect(params.name).to.be.equal(Mock.args.name)
+            expect(params.id).to.be.equal(Mock.args.id)
             expect(isPlainObject(params.requestOptions)).to.be.equal(true)
             expect(isArray(params.requestOptions.fields)).to.be.equal(true)
             expect(
