@@ -1,13 +1,13 @@
 /* eslint-env mocha */
 
-const chai = require('chai')
-const expect = chai.expect
-
-const { isPlainObject, isArray, isEqual } = require('lodash')
-const Seneca = require('seneca')
-const MergeValidatePackage = require('../index')
+const { expect } = require('chai')
 
 const Mock = require('./mocks')
+const Seneca = require('seneca')
+const MergeValidatePackage = require('../index')
+const { isPlainObject, isArray, isEqual } = require('lodash')
+const { UNSUPPORTED_LANG } = require('joi-language-package/src/errors')
+
 describe('Merge Validate Package Test', () => {
   let mergeValidate = null
 
@@ -140,6 +140,63 @@ describe('Merge Validate Package Test', () => {
           .catch(reject)
       } catch (err) {
         reject(err)
+      }
+    })
+  })
+
+  it('Expect failure when a specified language is not supported', () => {
+    return new Promise((resolve, reject) => {
+      try {
+        mergeValidate.validate(Mock.unsupportedLanguage)
+          .catch(err => {
+            expect(typeof err).to.be.equal('object')
+            expect(err.status).to.be.equal(false)
+            expect(typeof err.message).to.be.equal('string')
+            expect(err.message).to.be.equal(UNSUPPORTED_LANG)
+            return resolve(null)
+          })
+      } catch (err) {
+        return reject(err)
+      }
+    })
+  })
+
+  it('Expect to use raw language object when the option is not a string', () => {
+    return new Promise((resolve, reject) => {
+      try {
+        return mergeValidate.validate(Mock.rawLanguageOption)
+          .then(params => {
+            expect(Object.keys(params).length).to.be.equal(1)
+            expect(params.name).to.be.equal(Mock.rawLanguageOption.args.name)
+            return resolve(null)
+          })
+          .catch(reject)
+      } catch (err) {
+        return reject(err)
+      }
+    })
+  })
+
+  it('Expect to throw erros in the specified language, when supported', () => {
+    return new Promise((resolve, reject) => {
+      try {
+        const EXPECTED_TERM = 'obrigatório'
+        const EXPECTED_ERROR_COUNT = 1
+
+        mergeValidate.validate(Mock.errorsInSupportedLanguage)
+          .catch(err => {
+            expect(typeof err).to.be.equal('object')
+            expect(err.status).to.be.equal(false)
+            expect(typeof err.message).to.be.equal('object')
+            expect(err.message.name).to.be.equal('ValidationError')
+            expect(Array.isArray(err.message.details)).to.be.equal(true)
+            expect(err.message.details.length).to.be.equal(EXPECTED_ERROR_COUNT)
+            const { message } = err.message.details.splice(-1).pop()
+            expect(message).to.include(EXPECTED_TERM)
+            return resolve(null)
+          })
+      } catch (err) {
+        return reject(err)
       }
     })
   })
