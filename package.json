@@ -41,6 +41,7 @@
     "btime-schema-validate-package": "github:Btime/btime-schema-validate-package",
     "joi": "^13.1.2",
     "joi-date-extensions": "^1.2.0",
+    "joi-language-package": "github:Btime/joi-language-package",
     "lodash": "^4.17.5",
     "seneca": "^3.7.0",
     "topo": "^3.0.0"
