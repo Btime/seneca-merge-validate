@@ -44,7 +44,7 @@ describe('Merge Validate Package Test', () => {
     })
   })
 
-  it('Expect validate property is a valid function in MergeValidatePackage Lib', () => {
+  it('Expect the validate property to be a function in MergeValidatePackage Lib', () => {
     return new Promise((resolve, reject) => {
       try {
         expect(typeof mergeValidate.validate).to.be.equal('function')
@@ -77,7 +77,7 @@ describe('Merge Validate Package Test', () => {
     })
   })
 
-  it('Expect validate params with options', () => {
+  it('Expect to validate args with request options', () => {
     return new Promise((resolve, reject) => {
       try {
         mergeValidate.validate(Mock)
@@ -133,7 +133,7 @@ describe('Merge Validate Package Test', () => {
     })
   })
 
-  it('Expect to throw erros in the specified language, when supported', () => {
+  it('Expect to throw errors in the specified language, when supported', () => {
     return new Promise((resolve, reject) => {
       try {
         const EXPECTED_TERM = 'obrigatório'
