@@ -1,4 +1,7 @@
+'use strict'
+
 const Joi = require('joi')
+const { errorLanguage } = require('joi-language-package')
 const BtimeSchemaValidatePackage = require('btime-schema-validate-package')
 const _ = require('lodash')
 
@@ -12,6 +15,7 @@ const validateSchema = BtimeSchemaValidatePackage.getSchema({
 })
 
 const DEFAULT_SCHEMA = validateSchema.result
+const DEFAULT_OPTIONS = { abortEarly: false }
 
 module.exports.default = function SenecaMergeValidate (seneca) {
   const getParams = (args, fields) => {
@@ -43,7 +47,15 @@ module.exports.default = function SenecaMergeValidate (seneca) {
   }
 
   const getOptions = (options) => {
-    return _.isPlainObject(options) && options || { abortEarly: false }
+    if (!_.isPlainObject(options)) {
+      return DEFAULT_OPTIONS
+    }
+
+    const { language } = options
+
+    return (typeof language === 'string')
+      ? { ...options, language: errorLanguage(language) }
+      : options
   }
 
   const getPluginName = (args) => {
@@ -56,18 +68,22 @@ module.exports.default = function SenecaMergeValidate (seneca) {
   }
 
   const validate = (data) => {
-    const schema = getSchema(data.schema)
-    const params = getParams(data.args, data.pick)
-    const pluginName = getPluginName(data.args || {})
-    const isValid = Joi.validate(params, schema, getOptions(data.options))
+    try {
+      const schema = getSchema(data.schema)
+      const params = getParams(data.args, data.pick)
+      const pluginName = getPluginName(data.args || {})
+      const isValid = Joi.validate(params, schema, getOptions(data.options))
 
-    if (isValid.error) {
-      if (seneca) {
-        seneca.log.error(getErrorMessageByPluginName(pluginName), isValid.error)
+      if (isValid.error) {
+        if (seneca) {
+          seneca.log.error(getErrorMessageByPluginName(pluginName), isValid.error)
+        }
+        return Promise.reject({ status: false, message: isValid.error })
       }
-      return Promise.reject({ status: false, message: isValid.error })
+      return Promise.resolve(params)
+    } catch (err) {
+      return Promise.reject({ status: false, message: err.message })
     }
-    return Promise.resolve(params)
   }
 
   return { validate, Joi }
