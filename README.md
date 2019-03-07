@@ -13,6 +13,7 @@ This package uses [`Btime-schema-validate-package`](https://github.com/Btime/bti
     1. [Installing](#installing)
 1. [Usage](#usage)
     1. [Example](#example)
+    1. [Language Support](#language-support)
 1. [Tests](#tests)
 
 ## Setup
@@ -69,6 +70,41 @@ function Plugin () {
     })
   }
 }
+```
+
+### Language Support
+Error messages default to the English language, but might be different by
+setting the language option:
+```js
+senecaMergeValidate.validate({
+  args,
+  pick: PICK_FIELDS,
+  schema: { name: args.role, method: args.cmd },
+  options: {
+    abortEarly: false,
+    language: 'pt-br'
+  }
+})
+```
+The [JOI Language Pack](https://github.com/Btime/joi-language-package) is used in order to allow for such translations.
+
+You can also [provide custom messages](https://github.com/hapijs/joi/blob/master/API.md#validatevalue-schema-options-callback) yourself by defining the **language object**:
+
+```js
+const language = {
+  any: {
+    required: 'is not optional'
+  }
+}
+senecaMergeValidate.validate({
+  args,
+  pick: PICK_FIELDS,
+  schema: { name: args.role, method: args.cmd },
+  options: {
+    abortEarly: false,
+    language
+  }
+})
 ```
 
 ## Tests

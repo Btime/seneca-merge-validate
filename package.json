@@ -10,9 +10,7 @@
     "src"
   ],
   "scripts": {
-    "test": "LOG_LEVEL=error mocha test/*.test.js --exit --timeout 555555",
-    "coverage": "LOG_LEVEL=error nyc mocha --exit --timeout 555555",
-    "htmlCoverage": "nyc --reporter=html mocha --exit --timeout 555555",
+    "test": "NODE_ENV=dev nyc --check-coverage --lines 90 --functions 90 --reporter=html --reporter=text mocha test/*.test.js --exit --timeout 555555",
     "fixStyle": "./node_modules/eslint/bin/eslint.js ./ --fix"
   },
   "husky": {
@@ -41,6 +39,7 @@
     "btime-schema-validate-package": "github:Btime/btime-schema-validate-package",
     "joi": "^13.1.2",
     "joi-date-extensions": "^1.2.0",
+    "joi-language-package": "github:Btime/joi-language-package",
     "lodash": "^4.17.5",
     "topo": "^3.0.0"
   },
