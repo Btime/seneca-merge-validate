@@ -41,7 +41,6 @@
     "joi-date-extensions": "^1.2.0",
     "joi-language-package": "github:Btime/joi-language-package",
     "lodash": "^4.17.5",
-    "seneca": "^3.7.0",
     "topo": "^3.0.0"
   },
   "devDependencies": {
@@ -55,6 +54,7 @@
     "eslint-plugin-standard": "^4.0.0",
     "husky": "^0.15.0-rc.3",
     "mocha": "^5.2.0",
-    "nyc": "^13.0.1"
+    "nyc": "^13.0.1",
+    "seneca": "^3.7.0"
   }
 }
