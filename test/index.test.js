@@ -122,7 +122,7 @@ describe('Merge Validate Package Test', () => {
       try {
         return mergeValidate.validate(Mock.rawLanguageOption)
           .then(params => {
-            expect(Object.keys(params).length).to.be.equal(1)
+            expect(Object.keys(params).length).to.be.equal(2)
             expect(params.name).to.be.equal(Mock.rawLanguageOption.args.name)
             return resolve(null)
           })
@@ -137,7 +137,7 @@ describe('Merge Validate Package Test', () => {
     return new Promise((resolve, reject) => {
       try {
         const EXPECTED_TERM = 'obrigatório'
-        const EXPECTED_ERROR_COUNT = 1
+        const EXPECTED_ERROR_COUNT = 2
 
         mergeValidate.validate(Mock.errorsInSupportedLanguage)
           .catch(err => {

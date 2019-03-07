@@ -17,8 +17,8 @@ module.exports.unsupportedLanguage = {
 }
 
 module.exports.rawLanguageOption = {
-  args: { name: 'Foo Bar' },
-  pick: [ 'name' ],
+  args: { name: 'Foo Bar', address: {} },
+  pick: [ 'name', 'address' ],
   schema: { name: 'customer', method: 'create' },
   options: {
     abortEarly: false,
@@ -30,7 +30,7 @@ module.exports.rawLanguageOption = {
 
 module.exports.errorsInSupportedLanguage = {
   args: { },
-  pick: [ 'name' ],
+  pick: [ 'name', 'address' ],
   schema: { name: 'customer', method: 'create' },
   options: {
     abortEarly: false,
