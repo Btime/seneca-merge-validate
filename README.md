@@ -14,6 +14,7 @@ This package uses [`Btime-schema-validate-package`](https://github.com/Btime/bti
 1. [Usage](#usage)
     1. [Example](#example)
     1. [Language Support](#language-support)
+1. [Pushing Versions - Tagging](#pushing-versions---tagging)
 1. [Tests](#tests)
 
 ## Setup
@@ -107,20 +108,20 @@ senecaMergeValidate.validate({
 })
 ```
 
+## Pushing versions - Tagging
+
+All pushes must come with a new tag. The tag usage must consider semantic versions
+
+- `[major version: incompatible changes].[minor version: compatible with major].[patch version: bug fixes]`
+
+### Example of Usage
+
+```bash
+git tag 1.0.0 && git push origin master --tags
+```
+
 ## Tests
 
 ```bash
 $ npm test
-```
-
-- Running tests with coverage in terminal:
-
-```bash
-$ npm run coverage
-```
-
-- Running tests with coverage in HTML:
-
-```bash
-$ npm run htmlCoverage
 ```
