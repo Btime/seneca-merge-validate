@@ -69,6 +69,9 @@ module.exports.default = function SenecaMergeValidate (seneca) {
 
   const validate = (data) => {
     try {
+      if (data.args.toCheck) {
+        return Promise.resolve(data.done(null, { checked: true }))
+      }
       const schema = getSchema(data.schema)
       const params = getParams(data.args, data.pick)
       const pluginName = getPluginName(data.args || {})
