@@ -1,6 +1,6 @@
 'use strict'
 
-const Joi = require('joi')
+const Joi = require('@hapi/joi')
 const { errorLanguage } = require('joi-language-package')
 const BtimeSchemaValidatePackage = require('btime-schema-validate-package')
 const _ = require('lodash')
@@ -18,17 +18,15 @@ const DEFAULT_SCHEMA = validateSchema.result
 const DEFAULT_OPTIONS = { abortEarly: false }
 
 module.exports.default = function SenecaMergeValidate (seneca) {
-  const getParams = (args, fields) => {
-    return _.pick(
-      seneca ? seneca.util.clean(args) : args,
-      _.union(
-        DEFAULT_PICK_FIELDS,
-        (_.isArray(fields) && fields || [])
-      )
+  const getParams = (args, fields) => _.pick(
+    seneca ? seneca.util.clean(args) : args,
+    _.union(
+      DEFAULT_PICK_FIELDS,
+      (_.isArray(fields) && fields || [])
     )
-  }
+  )
 
-  const getSchema = (schema) => {
+  const getSchema = schema => {
     const name = schema.name || ''
     const method = schema.method || ''
 
@@ -46,7 +44,7 @@ module.exports.default = function SenecaMergeValidate (seneca) {
     )
   }
 
-  const getOptions = (options) => {
+  const getOptions = options => {
     if (!_.isPlainObject(options)) {
       return DEFAULT_OPTIONS
     }
@@ -58,16 +56,14 @@ module.exports.default = function SenecaMergeValidate (seneca) {
       : options
   }
 
-  const getPluginName = (args) => {
-    return args && args.meta$ && args.meta$.plugin && args.meta$.plugin.name
-  }
+  const getPluginName = args => args && args.meta$ && args.meta$.plugin && args.meta$.plugin.name
 
-  const getErrorMessageByPluginName = (pluginName) => {
+  const getErrorMessageByPluginName = pluginName => {
     const message = pluginName && `| ${pluginName}` || ''
     return `LOG::[VALIDATION ERROR ${message}]`
   }
 
-  const validate = (data) => {
+  const validate = data => {
     try {
       if (data.args.toCheck) {
         return Promise.resolve(data.done(null, { checked: true }))
