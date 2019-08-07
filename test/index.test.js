@@ -6,7 +6,6 @@ const Mock = require('./mocks')
 const Seneca = require('seneca')
 const MergeValidatePackage = require('../index')
 const { isPlainObject, isArray, isEqual } = require('lodash')
-const { UNSUPPORTED_LANG } = require('joi-language-package/src/errors')
 
 describe('Merge Validate Package Test', () => {
   let mergeValidate = null
@@ -59,8 +58,14 @@ describe('Merge Validate Package Test', () => {
     } catch (err) {
       expect(typeof err).to.be.equal('object')
       expect(err.status).to.be.equal(false)
-      expect(typeof err.message).to.be.equal('string')
-      expect(err.message).to.be.equal(UNSUPPORTED_LANG)
+      expect(typeof err.errors).to.be.equal('object')
+      expect(err.errors).to.have.property('code')
+      expect(typeof err.errors.code).to.be.equal('string')
+      expect(err.errors.code).to.be.equal('ITN-001')
+      expect(err.errors).to.have.property('path')
+      expect(err.errors.path).to.be.equal(null)
+      expect(err.errors).to.have.property('message')
+      expect(typeof err.errors.message).to.be.equal('string')
     }
   })
 

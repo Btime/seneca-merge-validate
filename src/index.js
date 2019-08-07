@@ -37,9 +37,9 @@ module.exports = function SenecaMergeValidate (seneca) {
         })
       }
       return params
-    } catch (errors) {
-      const err = { status: false, errors: errors.message || errors }
-      throw err
+    } catch (err) {
+      const errs = { status: false, errors: err.errors || err }
+      throw errs
     }
   }
 

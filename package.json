@@ -41,7 +41,7 @@
     "@hapi/topo": "^3.1.0",
     "btime-schema-validate-package": "github:btime/btime-schema-validate-package#semver:^1",
     "error-messages": "github:Btime/error-messages#semver:^1",
-    "joi-language-package": "github:Btime/joi-language-package#semver:^1",
+    "joi-language-package": "github:Btime/joi-language-package#beta",
     "lodash": "^4.17.5"
   },
   "devDependencies": {
