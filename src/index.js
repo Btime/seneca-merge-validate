@@ -38,10 +38,21 @@ module.exports = function SenecaMergeValidate (seneca) {
       }
       return params
     } catch (err) {
-      const errs = { status: false, errors: err.errors || err }
+      const errs = {
+        status: false,
+        errors: defineErr(err)
+      }
       throw errs
     }
   }
 
   return { validate, Joi }
+}
+
+function defineErr (err) {
+  if (!err.errors) return err
+
+  return Array.isArray(err.errors)
+    ? err.errors
+    : [ err.errors ]
 }
