@@ -1,6 +1,7 @@
 'use strict'
 
 const Joi = require('@hapi/joi')
+const { defineErrorMessages } = require('error-messages')
 const {
   getErrorMessageByPluginName,
   getOptions,
@@ -27,13 +28,18 @@ module.exports = function SenecaMergeValidate (seneca) {
         if (seneca) {
           seneca.log.error(getErrorMessageByPluginName(pluginName), isValid.error)
         }
-        const err = { status: false, message: isValid.error }
-        throw err
+
+        throw defineErrorMessages({
+          code: '',
+          entity: 'joi',
+          joi: isValid.error.details,
+          entityErr: data.entity
+        })
       }
       return params
-    } catch (err) {
-      const errMessage = { status: false, message: err.message }
-      throw errMessage
+    } catch (errors) {
+      const err = { status: false, errors: errors.message || errors }
+      throw err
     }
   }
 

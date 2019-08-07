@@ -73,7 +73,6 @@ describe('Merge Validate Package Test', () => {
 
   it('Expect to throw errors in the specified language, when supported',
     async () => {
-      const EXPECTED_TERM = 'obrigatório'
       const EXPECTED_ERROR_COUNT = 2
 
       try {
@@ -82,12 +81,12 @@ describe('Merge Validate Package Test', () => {
       } catch (err) {
         expect(typeof err).to.be.equal('object')
         expect(err.status).to.be.equal(false)
-        expect(typeof err.message).to.be.equal('object')
-        expect(err.message.name).to.be.equal('ValidationError')
-        expect(Array.isArray(err.message.details)).to.be.equal(true)
-        expect(err.message.details.length).to.be.equal(EXPECTED_ERROR_COUNT)
-        const { message } = err.message.details.splice(-1).pop()
-        expect(message).to.include(EXPECTED_TERM)
+        expect(Array.isArray(err.errors)).to.be.equal(true)
+        expect(err.errors[0].code).to.be.equal('CUS-503')
+        expect(err.errors[0].path).to.be.equal('name')
+        expect(err.errors[0].code).to.be.equal('CUS-503')
+        expect(err.errors[0].path).to.be.equal('name')
+        expect(err.errors.length).to.be.equal(EXPECTED_ERROR_COUNT)
       }
     })
 })

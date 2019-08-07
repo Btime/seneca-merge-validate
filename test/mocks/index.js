@@ -35,5 +35,6 @@ module.exports.errorsInSupportedLanguage = {
   options: {
     abortEarly: false,
     language: 'pt-br'
-  }
+  },
+  entity: 'customer'
 }
