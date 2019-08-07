@@ -11,129 +11,83 @@ const { UNSUPPORTED_LANG } = require('joi-language-package/src/errors')
 describe('Merge Validate Package Test', () => {
   let mergeValidate = null
 
-  before(() => new Promise((resolve, reject) => {
+  before(async () => {
     try {
-      mergeValidate = MergeValidatePackage(Seneca())
-      resolve(null)
+      mergeValidate = await MergeValidatePackage(Seneca())
     } catch (err) {
-      reject(err)
+      throw err
     }
-  }))
+  })
 
-  it('Expect mergeValidate instance isn\'t null', () => new Promise((resolve, reject) => {
-    try {
-      expect(mergeValidate).not.be.equal(null)
-      resolve(null)
-    } catch (err) {
-      reject(err)
-    }
-  }))
+  it('Expect mergeValidate instance isn\'t null', () => {
+    expect(mergeValidate).not.be.equal(null)
+  })
 
-  it('Expect exists validate property in MergeValidatePackage Lib', () => new Promise((resolve, reject) => {
-    try {
-      expect(!!mergeValidate.validate).to.be.equal(true)
-      resolve(null)
-    } catch (err) {
-      reject(err)
-    }
-  }))
+  it('Expect exists validate property in MergeValidatePackage Lib', () => {
+    expect(!!mergeValidate.validate).to.be.equal(true)
+  })
 
-  it('Expect the validate property to be a function in MergeValidatePackage Lib', () => new Promise((resolve, reject) => {
-    try {
+  it('Expect the validate property to be a function in MergeValidatePackage Lib',
+    () => {
       expect(typeof mergeValidate.validate).to.be.equal('function')
-      resolve(null)
-    } catch (err) {
-      reject(err)
-    }
-  }))
+    })
 
-  it('Expect exists Joi property in MergeValidatePackage Lib', () => new Promise((resolve, reject) => {
-    try {
-      expect(!!mergeValidate.Joi).to.be.equal(true)
-      resolve(null)
-    } catch (err) {
-      reject(err)
-    }
-  }))
+  it('Expect exists Joi property in MergeValidatePackage Lib', () => {
+    expect(!!mergeValidate.Joi).to.be.equal(true)
+  })
 
-  it('Expect exists Joi property is a valid object handler of Hapi/Joi', () => new Promise((resolve, reject) => {
-    try {
-      expect(!!mergeValidate.Joi.isJoi).to.be.equal(true)
-      resolve(null)
-    } catch (err) {
-      reject(err)
-    }
-  }))
+  it('Expect exists Joi property is a valid object handler of Hapi/Joi', () => {
+    expect(!!mergeValidate.Joi.isJoi).to.be.equal(true)
+  })
 
-  it('Expect to validate args with request options', () => new Promise((resolve, reject) => {
-    try {
-      mergeValidate.validate(Mock)
-        .then(params => {
-          expect(Object.keys(params).length).to.be.equal(2)
-          expect(params.id).to.be.equal(Mock.args.id)
-          expect(isPlainObject(params.requestOptions)).to.be.equal(true)
-          expect(isArray(params.requestOptions.fields)).to.be.equal(true)
-          expect(
-            isEqual(
-              params.requestOptions.fields,
-              Mock.args.requestOptions.fields)
-          ).to.be.equal(true)
-          return resolve(null)
-        })
-        .catch(reject)
-    } catch (err) {
-      reject(err)
-    }
-  }))
+  it('Expect to validate args with request options', async () => {
+    const response = await mergeValidate.validate(Mock)
 
-  it('Expect failure when a specified language is not supported', () => new Promise((resolve, reject) => {
-    try {
-      mergeValidate.validate(Mock.unsupportedLanguage)
-        .catch(err => {
-          expect(typeof err).to.be.equal('object')
-          expect(err.status).to.be.equal(false)
-          expect(typeof err.message).to.be.equal('string')
-          expect(err.message).to.be.equal(UNSUPPORTED_LANG)
-          return resolve(null)
-        })
-    } catch (err) {
-      return reject(err)
-    }
-  }))
+    expect(Object.keys(response).length).to.be.equal(2)
+    expect(response.id).to.be.equal(Mock.args.id)
+    expect(isPlainObject(response.requestOptions)).to.be.equal(true)
+    expect(isArray(response.requestOptions.fields)).to.be.equal(true)
+    expect(
+      isEqual(response.requestOptions.fields, Mock.args.requestOptions.fields)
+    ).to.be.equal(true)
+  })
 
-  it('Expect to use raw language object when the option is not a string', () => new Promise((resolve, reject) => {
+  it('Expect failure when a specified language is not supported', async () => {
     try {
-      return mergeValidate.validate(Mock.rawLanguageOption)
-        .then(params => {
-          expect(Object.keys(params).length).to.be.equal(2)
-          expect(params.name).to.be.equal(Mock.rawLanguageOption.args.name)
-          return resolve(null)
-        })
-        .catch(reject)
+      const response = await mergeValidate.validate(Mock.unsupportedLanguage)
+      expect(response).to.be.equal(undefined)
     } catch (err) {
-      return reject(err)
+      expect(typeof err).to.be.equal('object')
+      expect(err.status).to.be.equal(false)
+      expect(typeof err.message).to.be.equal('string')
+      expect(err.message).to.be.equal(UNSUPPORTED_LANG)
     }
-  }))
+  })
 
-  it('Expect to throw errors in the specified language, when supported', () => new Promise((resolve, reject) => {
-    try {
+  it('Expect to use raw language object when the option is not a string',
+    async () => {
+      const response = await mergeValidate.validate(Mock.rawLanguageOption)
+      expect(Object.keys(response).length).to.be.equal(2)
+      expect(response.name).to.be.equal(Mock.rawLanguageOption.args.name)
+    })
+
+  it('Expect to throw errors in the specified language, when supported',
+    async () => {
       const EXPECTED_TERM = 'obrigatório'
       const EXPECTED_ERROR_COUNT = 2
 
-      mergeValidate.validate(Mock.errorsInSupportedLanguage)
-        .catch(err => {
-          expect(typeof err).to.be.equal('object')
-          expect(err.status).to.be.equal(false)
-          expect(typeof err.message).to.be.equal('object')
-          expect(err.message.name).to.be.equal('ValidationError')
-          expect(Array.isArray(err.message.details)).to.be.equal(true)
-          expect(err.message.details.length).to.be.equal(EXPECTED_ERROR_COUNT)
-          const { message } = err.message.details.splice(-1).pop()
-          expect(message).to.include(EXPECTED_TERM)
-          return resolve(null)
-        })
-    } catch (err) {
-      return reject(err)
-    }
-  }))
+      try {
+        const response = await mergeValidate.validate(Mock.errorsInSupportedLanguage)
+        expect(response).to.be.equal(undefined)
+      } catch (err) {
+        expect(typeof err).to.be.equal('object')
+        expect(err.status).to.be.equal(false)
+        expect(typeof err.message).to.be.equal('object')
+        expect(err.message.name).to.be.equal('ValidationError')
+        expect(Array.isArray(err.message.details)).to.be.equal(true)
+        expect(err.message.details.length).to.be.equal(EXPECTED_ERROR_COUNT)
+        const { message } = err.message.details.splice(-1).pop()
+        expect(message).to.include(EXPECTED_TERM)
+      }
+    })
 })

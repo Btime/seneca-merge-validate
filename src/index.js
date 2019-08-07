@@ -1,75 +1,25 @@
 'use strict'
 
 const Joi = require('@hapi/joi')
-const { errorLanguage } = require('joi-language-package')
-const BtimeSchemaValidatePackage = require('btime-schema-validate-package')
-const _ = require('lodash')
+const {
+  getErrorMessageByPluginName,
+  getOptions,
+  getParams,
+  getSchema
+} = require('./functions')
 
-const DEFAULT_PICK_FIELDS = [
-  'requestOptions',
-  'credentials'
-]
+module.exports = function SenecaMergeValidate (seneca) {
+  const getPluginName = args =>
+    args && args.meta$ && args.meta$.plugin && args.meta$.plugin.name
 
-const validateSchema = BtimeSchemaValidatePackage.getSchema({
-  name: 'request-options', method: 'seneca-merge-validate'
-})
-
-const DEFAULT_SCHEMA = validateSchema.result
-const DEFAULT_OPTIONS = { abortEarly: false }
-
-module.exports.default = function SenecaMergeValidate (seneca) {
-  const getParams = (args, fields) => _.pick(
-    seneca ? seneca.util.clean(args) : args,
-    _.union(
-      DEFAULT_PICK_FIELDS,
-      (_.isArray(fields) && fields || [])
-    )
-  )
-
-  const getSchema = schema => {
-    const name = schema.name || ''
-    const method = schema.method || ''
-
-    const validateSchema = BtimeSchemaValidatePackage
-      .getSchema({ name, method })
-
-    const formattedSchema = _.isPlainObject(validateSchema) &&
-      validateSchema.result &&
-      validateSchema.result || {}
-
-    return _.merge(
-      {},
-      DEFAULT_SCHEMA,
-      (_.isPlainObject(formattedSchema) && formattedSchema || {})
-    )
-  }
-
-  const getOptions = options => {
-    if (!_.isPlainObject(options)) {
-      return DEFAULT_OPTIONS
-    }
-
-    const { language } = options
-
-    return (typeof language === 'string')
-      ? { ...options, language: errorLanguage(language) }
-      : options
-  }
-
-  const getPluginName = args => args && args.meta$ && args.meta$.plugin && args.meta$.plugin.name
-
-  const getErrorMessageByPluginName = pluginName => {
-    const message = pluginName && `| ${pluginName}` || ''
-    return `LOG::[VALIDATION ERROR ${message}]`
-  }
-
-  const validate = data => {
+  const validate = async data => {
     try {
       if (data.args.toCheck) {
-        return Promise.resolve(data.done(null, { checked: true }))
+        return data.done(null, { checked: true })
       }
+
       const schema = getSchema(data.schema)
-      const params = getParams(data.args, data.pick)
+      const params = getParams(data.args, seneca, data.pick)
       const pluginName = getPluginName(data.args || {})
       const isValid = Joi.validate(params, schema, getOptions(data.options))
 
@@ -77,11 +27,13 @@ module.exports.default = function SenecaMergeValidate (seneca) {
         if (seneca) {
           seneca.log.error(getErrorMessageByPluginName(pluginName), isValid.error)
         }
-        return Promise.reject({ status: false, message: isValid.error })
+        const err = { status: false, message: isValid.error }
+        throw err
       }
-      return Promise.resolve(params)
+      return params
     } catch (err) {
-      return Promise.reject({ status: false, message: err.message })
+      const errMessage = { status: false, message: err.message }
+      throw errMessage
     }
   }
 
