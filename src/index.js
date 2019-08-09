@@ -50,7 +50,9 @@ module.exports = function SenecaMergeValidate (seneca) {
 }
 
 function defineErr (err) {
-  if (!err.errors) return err
+  if (!err.errors && Array.isArray(err)) return err
+
+  if (!err.errors && !Array.isArray(err)) return [ err ]
 
   return Array.isArray(err.errors)
     ? err.errors
