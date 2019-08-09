@@ -39,7 +39,7 @@
     "@hapi/joi": "^15.0.3",
     "@hapi/joi-date": "^1.3.0",
     "@hapi/topo": "^3.1.0",
-    "btime-schema-validate-package": "github:btime/btime-schema-validate-package#semver:^1",
+    "btime-schema-validate-package": "github:btime/btime-schema-validate-package#beta",
     "error-messages": "github:Btime/error-messages#semver:^1",
     "joi-language-package": "github:Btime/joi-language-package#beta",
     "lodash": "^4.17.5"
