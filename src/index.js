@@ -37,24 +37,13 @@ module.exports = function SenecaMergeValidate (seneca) {
         })
       }
       return params
-    } catch (err) {
-      const errs = {
-        status: false,
-        errors: defineErr(err)
-      }
-      throw errs
+    } catch (errors) {
+      const err = Array.isArray(errors)
+        ? { status: false, errors }
+        : errors
+      throw err
     }
   }
 
   return { validate, Joi }
-}
-
-function defineErr (err) {
-  if (!err.errors && Array.isArray(err)) return err
-
-  if (!err.errors && !Array.isArray(err)) return [ err ]
-
-  return Array.isArray(err.errors)
-    ? err.errors
-    : [ err.errors ]
 }

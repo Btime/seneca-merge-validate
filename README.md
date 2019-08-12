@@ -28,7 +28,7 @@ $ npm i
 ## Usage
 
 ```bash
-$ npm i Btime/seneca-merge-validate -S
+$ npm i Btime/seneca-merge-validate#semver:^2 -S
 ```
 
 ### Example
@@ -66,7 +66,7 @@ function Plugin () {
 
   function createService (params) {
     return new Promise((resolve, reject) => {
-      return reject({ status: false, message: 'Error' })
+      return reject({ status: false, errors: [] })
       return resolve({ status: true, result: {} })
     })
   }
