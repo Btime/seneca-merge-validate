@@ -29,12 +29,13 @@ module.exports.rawLanguageOption = {
 }
 
 module.exports.errorsInSupportedLanguage = {
-  args: { },
+  args: {
+    entity: 'customer'
+  },
   pick: [ 'name', 'address' ],
   schema: { name: 'customer', method: 'create' },
   options: {
     abortEarly: false,
     language: 'pt-br'
-  },
-  entity: 'customer'
+  }
 }

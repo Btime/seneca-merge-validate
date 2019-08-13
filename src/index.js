@@ -33,7 +33,7 @@ module.exports = function SenecaMergeValidate (seneca) {
           code: '',
           entity: 'joi',
           joi: isValid.error.details,
-          entityErr: data.entity
+          entityErr: data.args && data.args.entity
         })
       }
       return params
