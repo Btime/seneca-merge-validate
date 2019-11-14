@@ -36,6 +36,6 @@ module.exports.errorsInSupportedLanguage = {
   schema: { name: 'customer', method: 'create' },
   options: {
     abortEarly: false,
-    language: 'pt-br'
+    language: 'pt'
   }
 }

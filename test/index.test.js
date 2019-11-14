@@ -84,6 +84,9 @@ describe('Merge Validate Package Test', () => {
         const response = await mergeValidate.validate(Mock.errorsInSupportedLanguage)
         expect(response).to.be.equal(undefined)
       } catch (err) {
+        console.log('\n\n\nConsole dir below:')
+        console.dir(err, { depth: null })
+        console.log('Console dir above\n\n\n')
         expect(typeof err).to.be.equal('object')
         expect(err.status).to.be.equal(false)
         expect(Array.isArray(err.errors)).to.be.equal(true)

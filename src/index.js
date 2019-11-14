@@ -29,12 +29,14 @@ module.exports = function SenecaMergeValidate (seneca) {
           seneca.log.error(getErrorMessageByPluginName(pluginName), isValid.error)
         }
 
-        throw defineErrorMessages({
-          code: '',
-          entity: 'joi',
-          joi: isValid.error.details,
-          entityErr: data.args && data.args.entity
+        const err = defineErrorMessages({
+          serviceValidator: 'joi',
+          serviceName: data.args && data.args.entity,
+          joiErrors: isValid.error.details,
+          lang: 'en'
         })
+
+        throw err
       }
       return params
     } catch (errors) {
