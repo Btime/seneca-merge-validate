@@ -28,7 +28,7 @@ $ npm i
 ## Usage
 
 ```bash
-$ npm i Btime/seneca-merge-validate -S
+$ npm i Btime/seneca-merge-validate#semver:^1 -S
 ```
 
 ### Example
